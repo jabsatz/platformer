@@ -1,26 +1,35 @@
 // creating the canvas-element
 canvas = document.createElement('canvas');
-canvas.width = 500;
-canvas.height = 250;
+canvas.width = 1080;
+canvas.height = 720;
 document.body.appendChild(canvas);
- 
+
+// preloading files
+queue = new createjs.LoadQueue();
+queue.setMaxConnections(8);
+
+queue.loadManifest([
+    {src:"level.js"},
+    {src:"camera.js"},
+    {src:"player.js"}
+  ], true);
+
+
 // initializing the stage
-stage = new createjs.Stage(canvas);
+var stage = new createjs.Stage(canvas);
+stage.width = canvas.width;
+stage.height = canvas.height;
 
 // updating the stage at 60 fps
 createjs.Ticker.setFPS(60);
-createjs.Ticker.addEventListener(tick);
-function tick(e){
-  stage.update();
-}
+createjs.Ticker.addEventListener("tick", update);
 
-// preloading image
-var img = new Image();
-img.onload = onImageLoaded;
-img.src = 'asset/char.png';
- 
-// create displayObject and add it to stage
-function onImageLoaded(e) {
-    var myBitmap = new Bitmap(img);
-    stage.addChild(myBitmap);
-}
+stage.on("stagemousemove",function(evt) {
+  camera.x = evt.stageX - camera.width/2;
+  camera.y = evt.stageY - camera.height/2;
+});
+
+function update(event) {
+  camera.draw(stage, level);
+  stage.update();
+};
