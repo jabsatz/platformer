@@ -7,12 +7,12 @@ document.body.appendChild(canvas);
 // preloading files
 queue = new createjs.LoadQueue();
 queue.setMaxConnections(8);
-
 queue.loadManifest([
+    {src:"helpers.js"},
     {src:"level.js"},
     {src:"camera.js"},
     {src:"player.js"}
-  ], true);
+  ], true, "classes/");
 
 
 // initializing the stage
@@ -20,16 +20,12 @@ var stage = new createjs.Stage(canvas);
 stage.width = canvas.width;
 stage.height = canvas.height;
 
-// updating the stage at 60 fps
-createjs.Ticker.setFPS(60);
+// updating the stage at 30 fps
+createjs.Ticker.setFPS(30);
 createjs.Ticker.addEventListener("tick", update);
 
-stage.on("stagemousemove",function(evt) {
-  camera.x = evt.stageX - camera.width/2;
-  camera.y = evt.stageY - camera.height/2;
-});
-
 function update(event) {
-  camera.draw(stage, level);
+  camera.update(stage);
+  camera.draw(stage, level, player);
   stage.update();
 };
