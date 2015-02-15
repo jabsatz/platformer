@@ -1,24 +1,22 @@
 function Engine(stage,level,player){
-  this.width  = stage.width;
-  this.height = stage.height;
-  this.x      = this.width/2;
-  this.y      = this.height/2;
-  this.xvar   = 0;
-  this.yvar   = 0;
-  this.level  = level;
-  this.player = player;
-  this.stage  = stage;
-
-  this.crosshair = new createjs.Shape();
-  this.crosshair.graphics.beginStroke("#3f3").drawCircle(0, 0, 20);
-  this.crosshair.graphics.moveTo(0, 0).lt(-20, 0).mt(0, 0).lt(20, 0).mt(0,0).lt(0, 20).mt(0,0).lt(0, -20);
+  this.width     = stage.width;
+  this.height    = stage.height;
+  this.xvar      = 0;
+  this.yvar      = 0;
+  this.level     = level;
+  this.player    = player;
+  this.stage     = stage;
+  this.crosshair = new Crosshair(0, 0);
+  this.x         = this.player.x - this.width/4;
+  this.y         = this.player.y - this.height/4;
 };
 
 Engine.prototype.update = function(){
   var prevX = this.x;
   var prevY = this.y;
-  this.x = stage.mouseX;
-  this.y = stage.mouseY;
+  this.crosshair.update(stage.mouseX, stage.mouseY);
+  this.x = ( this.crosshair.x + this.player.x ) / 2;
+  this.y = ( this.crosshair.y + this.player.y ) / 2;
   this.xvar = this.x - prevX;
   this.yvar = this.y - prevY;
 };
@@ -30,12 +28,11 @@ Engine.prototype.draw = function() {
   this.level.shape.y += this.yvar;
   this.stage.addChild(this.level.shape);
 
-
-  this.crosshair.x = this.x;
-  this.crosshair.y = this.y;
-  this.stage.addChild(this.crosshair);
+  this.stage.addChild(this.crosshair.shape);
 
   this.player.shape.x += this.xvar;
   this.player.shape.y += this.yvar;  
   this.stage.addChild(this.player.shape);
+
+  this.stage.update();
 };

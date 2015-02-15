@@ -25,5 +25,4 @@ createjs.Ticker.addEventListener("tick", update);
 function update(event) {
   engine.update();
   engine.draw();
-  stage.update();
 };
