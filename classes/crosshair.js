@@ -6,7 +6,9 @@ function Crosshair(x,y){
   this.shape.graphics.moveTo(0, 0).lt(-20, 0).mt(0, 0).lt(20, 0).mt(0,0).lt(0, 20).mt(0,0).lt(0, -20);
 }
 
-Crosshair.prototype.update = function(x,y) {
+Crosshair.prototype.update = function(s) {
+  var x = s.mouseX
+  var y = s.mouseY
   this.x = x;
   this.y = y;
   this.shape.x = x;

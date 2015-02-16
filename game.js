@@ -14,7 +14,8 @@ var platforms = [
   {"x": 500, "y": 400, "width": 300, "height": 50, "color":"#000"}
 ];
 
-var level = new Level("#09c", platforms, stage);
+var input  = new inputHandler();
+var level  = new Level("#09c", platforms, stage);
 var player = new Player(0,0,0);
 var engine = new Engine(stage, level, player);
 
