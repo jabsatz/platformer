@@ -9,6 +9,7 @@ function Engine(stage,level,player){
   this.crosshair = new Crosshair(0, 0);
   this.x         = 0;
   this.y         = 0;
+  this.bullets   = [];
 
   /*
   this.debug    = new createjs.Text();
@@ -19,7 +20,10 @@ function Engine(stage,level,player){
 
 Engine.prototype.update = function(){
   this.player.update(this.level);
-  this.crosshair.update(this.stage);
+  this.crosshair.update(this.stage, this.bullets, this.player);
+  for(var i = 0; i < this.bullets.length; i++){
+    this.bullets[i].update(this.stage, this.bullets, i);
+  }
 };
 
 Engine.prototype.draw = function() {
@@ -27,9 +31,13 @@ Engine.prototype.draw = function() {
 
   this.stage.addChild(this.level.shape);
 
-  this.stage.addChild(this.crosshair.shape);
-
   this.stage.addChild(this.player.shape);
+
+  for (var i = 0; i < this.bullets.length; i++) {
+    this.stage.addChild(this.bullets[i].shape);
+  };
+
+  this.stage.addChild(this.crosshair.shape);
 
   this.stage.addChild(this.debug);
 
