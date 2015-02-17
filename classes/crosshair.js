@@ -13,4 +13,11 @@ Crosshair.prototype.update = function(s) {
   this.y = y;
   this.shape.x = x;
   this.shape.y = y;
+
+  if(input.isPressed('m0')){
+    console.log('left click');
+  }
+  if(input.isPressed('m2')){
+    console.log('right click');
+  }
 };

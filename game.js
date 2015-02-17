@@ -11,7 +11,7 @@ stage.height = canvas.height;
 
 var platforms = [
   {"x": 0  , "y": 640, "width": 1080, "height": 100, "color":"#393"},
-  {"x": 500, "y": 400, "width": 300, "height": 50, "color":"#000"}
+  {"x": 500, "y": 400, "width": 300, "height": 50, "color":"#444"}
 ];
 
 var input  = new inputHandler();
