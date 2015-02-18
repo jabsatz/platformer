@@ -11,18 +11,16 @@ function Engine(stage,level,player){
   this.y         = 0;
   this.bullets   = [];
 
-  /*
   this.debug    = new createjs.Text();
   this.debug.x  = 800;
-  this.debug.text = 'acá va el texto de debugeo'
-  */
+
 };
 
 Engine.prototype.update = function(){
   this.player.update(this.level);
   this.crosshair.update(this.stage, this.bullets, this.player);
   for(var i = 0; i < this.bullets.length; i++){
-    this.bullets[i].update(this.stage, this.bullets, i);
+    this.bullets[i].update(this.stage, this.bullets, i, this.level);
   }
 };
 

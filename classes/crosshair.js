@@ -31,7 +31,6 @@ Crosshair.prototype.update = function(s, b, p) {
     if(input.isPressed('m0')){
       b.push(new Bullet(p.x + p.width/2, p.y + p.height/2, this.x, this.y))
       this.size++;
-      console.log(p.x)
     }
     if(input.isPressed('m2')){
       console.log('right click');

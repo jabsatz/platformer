@@ -76,3 +76,7 @@ function collision(shapeA, shapeB){
   }
   return colDir;
 }
+
+function simplecollision(shapeA,shapeB){
+  return shapeA.x < shapeB.x+shapeB.width && shapeB.x < shapeA.x+shapeA.width && shapeA.y < shapeB.y+shapeB.height && shapeB.y < shapeA.y+shapeA.height;
+}
