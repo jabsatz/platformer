@@ -27,20 +27,21 @@ function inputHandler(){
     evt.preventDefault();
     return false;
   }, false);
-};
 
-inputHandler.prototype.isDown = function(code){
-  return this.down[code];
-};
+  this.isDown = function(code){
+    return this.down[code];
+  }
 
-inputHandler.prototype.isPressed = function(code){
-  if (this.pressed[code]){
+  this.isPressed = function(code){
+    if (this.pressed[code]){
+      return false;
+    }
+    else if (this.down[code]){
+      return this.pressed[code] = true;
+    }
     return false;
   }
-  else if (this.down[code]){
-    return this.pressed[code] = true;
-  }
-  return false;
+
 };
 
 function collision(shapeA, shapeB){

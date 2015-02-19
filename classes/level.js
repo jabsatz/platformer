@@ -9,4 +9,4 @@ function Level(background, platforms, stage) {
     this.shape.graphics.beginFill(pl.color).drawRect(pl.x, pl.y, pl.width, pl.height);
   }
 
-};
+}

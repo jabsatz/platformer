@@ -11,33 +11,34 @@ function Engine(stage,level,player){
   this.y         = 0;
   this.bullets   = [];
 
-  this.debug    = new createjs.Text();
-  this.debug.x  = 800;
+  this.debug     = new createjs.Text();
+  this.debug.x   = 800;
 
-};
-
-Engine.prototype.update = function(){
-  this.player.update(this.level);
-  this.crosshair.update(this.stage, this.bullets, this.player);
-  for(var i = 0; i < this.bullets.length; i++){
-    this.bullets[i].update(this.stage, this.bullets, i, this.level);
+  this.update    = function(){
+    this.player.update(this.level);
+    this.crosshair.update(this.stage, this.bullets, this.player);
+    for(var i = 0; i < this.bullets.length; i++){
+      this.bullets[i].update(this.stage, this.bullets, i, this.level);
+    }
+    this.debug.text = Math.abs(this.player.vely);
   }
-};
 
-Engine.prototype.draw = function() {
-  this.stage.addChild(this.level.background);
+  this.draw = function() {
+    this.stage.addChild(this.level.background);
 
-  this.stage.addChild(this.level.shape);
+    this.stage.addChild(this.level.shape);
 
-  this.stage.addChild(this.player.shape);
+    this.stage.addChild(this.player.shape);
 
-  for (var i = 0; i < this.bullets.length; i++) {
-    this.stage.addChild(this.bullets[i].shape);
-  };
+    for (var i = 0; i < this.bullets.length; i++) {
+      this.stage.addChild(this.bullets[i].shape);
+    };
 
-  this.stage.addChild(this.crosshair.shape);
+    this.stage.addChild(this.crosshair.shape);
 
-  this.stage.addChild(this.debug);
+    this.stage.addChild(this.debug);
 
-  this.stage.update();
+    this.stage.update();
+  }
+
 };
