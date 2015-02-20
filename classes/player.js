@@ -45,6 +45,10 @@ function Player(x,y) {
       this.grounded = false;
       this.y += this.vely
     }
+    
+    this.x += this.velx;
+    this.y += this.vely;
+
     for(var i = 0; i < l.platforms.length; i++){
       pl  = platforms[i];
       var dir = collision(this, pl);
@@ -66,8 +70,6 @@ function Player(x,y) {
       this.vely = 0;
     }
 
-    this.x += this.velx;
-    this.y += this.vely;
 
     this.shape.x = this.x;
     this.shape.y = this.y;

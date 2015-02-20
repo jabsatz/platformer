@@ -20,7 +20,7 @@ function Engine(stage,level,player){
     for(var i = 0; i < this.bullets.length; i++){
       this.bullets[i].update(this.stage, this.bullets, i, this.level);
     }
-    this.debug.text = Math.abs(this.player.vely);
+    this.debug.text = Math.abs(createjs.Ticker.framerate);
   }
 
   this.draw = function() {

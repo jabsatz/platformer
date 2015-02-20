@@ -54,7 +54,8 @@ function collision(shapeA, shapeB){
       colDir = null;
 
   // if the x and y vector are less than the half width or half height, they we must be inside the object, causing a collision
-  if (Math.abs(vX) < hWidths && Math.abs(vY) < hHeights) {         // figures out on which side we are colliding (top, bottom, left, or right)         
+  if (Math.abs(vX) < hWidths && Math.abs(vY) < hHeights) {
+    // figures out on which side we are colliding (top, bottom, left, or right)         
     var oX = hWidths - Math.abs(vX),
         oY = hHeights - Math.abs(vY);
     if (oX >= oY) {
