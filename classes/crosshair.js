@@ -1,6 +1,6 @@
-function Crosshair(x,y){
-  this.x = x;
-  this.y = y;
+function Crosshair(){
+  this.x = 0;
+  this.y = 0;
   this.size = 1;
   this.enabled = true;
   this.shape = new createjs.Shape();
@@ -18,6 +18,8 @@ function Crosshair(x,y){
     this.shape.scaleX = this.size;
     this.shape.scaleY = this.size;
 
+
+
     if(this.size > 1){
       this.enabled = false;
       this.size -= 0.1;
@@ -28,7 +30,7 @@ function Crosshair(x,y){
 
     if(this.enabled){
       if(input.isPressed('m0')){
-        b.push(new Bullet(p.x + p.width/2, p.y + p.height/2, this.x, this.y))
+        b.push(new Bullet(p.shootx,p.shooty,p.angle))
         this.size++;
       }
       if(input.isPressed('m2')){

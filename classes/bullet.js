@@ -1,8 +1,10 @@
-function Bullet(x, y, x2, y2){
+function Bullet(x,y,angle){
   this.x = x;
   this.y = y;
-  this.velx = (x2 - x)/50;
-  this.vely = (y2 - y)/50;
+  this.angle = angle
+  this.speed = 20;
+  this.velx = Math.sin(this.angle)*this.speed;
+  this.vely = Math.cos(this.angle)*this.speed;
   this.width = 5;
   this.height = 5;
   this.shape = new createjs.Shape();
@@ -13,6 +15,9 @@ function Bullet(x, y, x2, y2){
       b.splice(i,1);
     }
     else{
+      this.y += this.vely;
+      this.x += this.velx;
+      
       for(var j = 0; j < l.platforms.length; j++){
         pl  = platforms[j];
         if(simplecollision(this,pl) === true){
@@ -20,8 +25,6 @@ function Bullet(x, y, x2, y2){
           break;
         }
       }
-      this.y += this.vely;
-      this.x += this.velx;
       this.shape.x = this.x;
       this.shape.y = this.y;  
     }

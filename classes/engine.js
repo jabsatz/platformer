@@ -6,7 +6,6 @@ function Engine(stage,level,player){
   this.level     = level;
   this.player    = player;
   this.stage     = stage;
-  this.crosshair = new Crosshair(0, 0);
   this.x         = 0;
   this.y         = 0;
   this.bullets   = [];
@@ -15,12 +14,11 @@ function Engine(stage,level,player){
   this.debug.x   = 800;
 
   this.update    = function(){
-    this.player.update(this.level);
-    this.crosshair.update(this.stage, this.bullets, this.player);
+    this.player.update(this.level, this.stage, this.bullets, this.player);
     for(var i = 0; i < this.bullets.length; i++){
       this.bullets[i].update(this.stage, this.bullets, i, this.level);
     }
-    this.debug.text = Math.abs(createjs.Ticker.framerate);
+
   }
 
   this.draw = function() {
@@ -28,13 +26,14 @@ function Engine(stage,level,player){
 
     this.stage.addChild(this.level.shape);
 
-    this.stage.addChild(this.player.shape);
-
     for (var i = 0; i < this.bullets.length; i++) {
       this.stage.addChild(this.bullets[i].shape);
     };
 
-    this.stage.addChild(this.crosshair.shape);
+    this.stage.addChild(this.player.shape);
+    this.stage.addChild(this.player.armshape);
+
+    this.stage.addChild(this.player.crosshair.shape);
 
     this.stage.addChild(this.debug);
 
