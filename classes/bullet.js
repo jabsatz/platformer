@@ -8,7 +8,7 @@ function Bullet(x,y,angle){
   this.width = 5;
   this.height = 5;
   this.shape = new createjs.Shape();
-  this.shape.graphics.beginFill("#f00").drawRect(0, 0, 5, 5);
+  this.shape.graphics.beginStroke("#000").beginFill("#ff0").drawCircle(0, 0, 5);
 
   this.update = function(s,b,i,l){
     if(this.x > s.width || this.y > s.height || this.x < 0 || this. y < 0){
@@ -17,7 +17,7 @@ function Bullet(x,y,angle){
     else{
       this.y += this.vely;
       this.x += this.velx;
-      
+
       for(var j = 0; j < l.platforms.length; j++){
         pl  = platforms[j];
         if(simplecollision(this,pl) === true){

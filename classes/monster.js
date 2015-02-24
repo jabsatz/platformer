@@ -1,4 +1,5 @@
-function Player(x,y) {
+function Monster(x,y) {
+  this.hp         = 10;
   this.x          = x;
   this.y          = y;
   this.velx       = 0;
@@ -8,45 +9,21 @@ function Player(x,y) {
   this.width      = 20;
   this.grounded   = false;
   this.friction   = 0.8;
-  this.gravity    = 0.5;
-  this.crosshair  = new Crosshair();
+  this.gravity    = 1;
   this.angle      = 0;
   this.shootx     = 0;
   this.shooty     = 0;
 
   this.shape = new createjs.Shape();
-  this.shape.graphics.beginStroke("#000").beginFill("#fda").drawCircle(10, 10, 10);
-  this.shape.graphics.beginFill("#000").drawRect(0, 20, 20, 40);
+  this.shape.graphics.beginStroke("#000").beginFill("#aaa").drawCircle(10, 10, 10);
+  this.shape.graphics.beginStroke("#000").beginFill("#777").drawRect(0, 20, 20, 40);
 
   this.armshape = new createjs.Shape();
-  this.armshape.graphics.beginStroke("#000").beginFill("#600").drawRect(0, 0, 10, 20);
-  this.armshape.graphics.beginStroke("#000").beginFill("#fda").drawRect(0, 15, 10, 5);
-  this.armshape.graphics.beginFill("#000").drawRect(10, 15, 5, 10);
+  this.armshape.graphics.beginStroke("#000").beginFill("#333").drawRect(0, 0, 10, 20);
+  this.armshape.graphics.beginStroke("#000").beginFill("#aaa").drawRect(0, 15, 10, 5);
   this.armshape.regX = 5;
 
-  this.update = function(l,s,b,p){
-    // A (Left)
-    if(input.isDown(65)){
-      if (this.velx > -this.speed) {
-        this.velx -= this.speed/5;
-      }
-    }
-    // D (Right)
-    if(input.isDown(68)){
-      if (this.velx < this.speed) {
-        this.velx += this.speed/5;
-      }
-    }
-    // Space (Jump)
-    if(input.isPressed(32)){
-      if(this.grounded) {
-        this.grounded = false;
-        this.vely = -this.speed;
-      } 
-    }
-    if(this.velx < 1 && this.velx > -1){
-      this.velx = 0;
-    }
+  this.update = function(l,s,b){
 
     this.velx *= this.friction;
     this.vely += this.gravity;
@@ -90,22 +67,23 @@ function Player(x,y) {
       this.vely = 0;
     }
 
-
-    angle(this, this.crosshair, 5, 25);
-
-    this.shootx = this.x + 5;
-    this.shooty = this.y + 25;
-
-    this.armshape.x = this.x + 5;
-    this.armshape.y = this.y + 25;
-    this.armshape.rotation = -this.angle*180/Math.PI;
     this.shape.x = this.x;
     this.shape.y = this.y;
+    this.armshape.x = this.x + 5;
+    this.armshape.y = this.y + 25;
 
-
-
-    this.crosshair.update(s,b,p);
-
+    for(var i = 0; i < b.length; i++){
+      if(simplecollision(this,b[i])){
+        this.hp --;
+        if(this.hp <= 0){
+          console.log("dead");
+        }
+        else{
+          console.log(this.hp);
+        }
+        b.splice(i,1);
+      }
+    }
 
   }
-};
+}

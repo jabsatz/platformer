@@ -82,3 +82,25 @@ function collision(shapeA, shapeB){
 function simplecollision(shapeA,shapeB){
   return shapeA.x < shapeB.x+shapeB.width && shapeB.x < shapeA.x+shapeA.width && shapeA.y < shapeB.y+shapeB.height && shapeB.y < shapeA.y+shapeA.height;
 }
+
+function angle(shapeA, shapeB, xoff, yoff){
+  var Ax = shapeA.x + xoff;
+  var Ay = shapeA.y + yoff;
+  var sidex = (shapeB.x - Ax);
+  var sidey = (shapeB.y - Ay);
+  shapeA.angle = Math.atan(sidex/sidey);
+  if(Ax < shapeB.x && Ay > shapeB.y){
+    shapeA.angle = Math.PI - (shapeA.angle * -1);
+  }
+  if(Ax > shapeB.x && Ay > shapeB.y){
+    shapeA.angle += Math.PI;
+  }
+  if(Ax > shapeB.x && Ay < shapeB.y){
+    shapeA.angle = 2*Math.PI - (shapeA.angle * -1);
+  }
+}
+
+function Vector(x,y){
+  this.x = x;
+  this.y = y;
+}

@@ -9,16 +9,18 @@ function Engine(stage,level,player){
   this.x         = 0;
   this.y         = 0;
   this.bullets   = [];
+  this.monster   = new Monster(800, 0);
 
   this.debug     = new createjs.Text();
   this.debug.x   = 800;
 
   this.update    = function(){
     this.player.update(this.level, this.stage, this.bullets, this.player);
+    this.monster.update(this.level, this.stage, this.bullets);
     for(var i = 0; i < this.bullets.length; i++){
       this.bullets[i].update(this.stage, this.bullets, i, this.level);
     }
-
+    this.debug.text = Math.round(this.player.angle*180/Math.PI);
   }
 
   this.draw = function() {
@@ -29,6 +31,9 @@ function Engine(stage,level,player){
     for (var i = 0; i < this.bullets.length; i++) {
       this.stage.addChild(this.bullets[i].shape);
     };
+
+    this.stage.addChild(this.monster.shape);
+    this.stage.addChild(this.monster.armshape);
 
     this.stage.addChild(this.player.shape);
     this.stage.addChild(this.player.armshape);
