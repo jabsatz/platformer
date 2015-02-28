@@ -95,12 +95,8 @@ function angle(shapeA, shapeB, xoff, yoff){
   if(Ax > shapeB.x && Ay > shapeB.y){
     shapeA.angle += Math.PI;
   }
-  if(Ax > shapeB.x && Ay < shapeB.y){
+  if(Ax > shapeB.x && Ay <= shapeB.y){
     shapeA.angle = 2*Math.PI - (shapeA.angle * -1);
   }
 }
 
-function Vector(x,y){
-  this.x = x;
-  this.y = y;
-}
